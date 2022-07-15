@@ -1,0 +1,133 @@
+
+;;Main Definition
+
+
+(defwidget left []
+	(box :orientation "h" 
+		 :space-evenly false  
+         :halign "start"
+		 :class "left_modules"
+(workspaces)
+))
+
+
+(defwidget right []
+	(box :orientation "h"
+		 :space-evenly false
+         :halign "end"
+		 :class "right_modules"
+(audiostuff)
+(sidestuff)
+(batterystuff)
+time
+))
+
+
+
+(defwidget bar []
+  (centerbox :orientation "h"
+    (left)
+    (music)
+    (right)))
+
+
+(defwidget audiostuff []
+  (box :class "audiostuff" :orientation "h" :space-evenly false :halign "end"
+
+    (metric :label "Audio "
+            :value volume
+            :onchange "amixer -D pulse sset Master {}%")
+    ))
+
+
+(defwidget sidestuff []
+  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
+
+    (metric :label "Ram "
+            :value {EWW_RAM.used_mem_perc}
+            :onchange "")
+
+    (metric :label "Cpu "
+            :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}
+            :onchange "")
+
+    ))
+
+
+(defwidget batterystuff []
+  (box :class "batterystuff" :orientation "h" :space-evenly false :halign "end"
+    (metric :label "Battery "
+            :value battery
+            :onchange "")
+    ))
+
+
+
+(deflisten workspace "scripts/workspace")
+(defwidget workspaces []
+(literal :content workspace))
+
+
+
+(defwidget music []
+  (box :class "music"
+       :orientation "h"
+       :space-evenly false
+       :halign "center"
+    {music != "" ? "🎵${music}" : ""}))
+
+
+(defwidget battery []
+  (box :class "battery"
+       :orientation "h"
+       :space-evenly false
+       :halign "left"
+    {battery != "" ? "   ${battery}%" : ""}))
+
+
+(defwidget metric [label value onchange]
+  (box :orientation "h"
+       :class "metric"
+       :space-evenly false
+    (box :class "label" label)
+    (scale :min 0
+           :max 101
+           :active {onchange != ""}
+           :value value
+           :onchange onchange)))
+
+
+(defwidget left []
+	(box :orientation "h" 
+		 :space-evenly false  
+         :halign "start"
+		 :class "left_modules"
+(workspaces)
+))
+
+
+(deflisten music :initial ""
+  "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
+
+
+(deflisten battery :initial ""
+  "cat /sys/class/power_supply/BAT0/capacity")
+
+(defpoll volume :interval "1s"
+  "scripts/getvol")
+
+(defpoll time :interval "10s"
+  "date '+%H:%M %d %b '")
+
+(defwindow bar
+  :exclusive true
+  :monitor 0
+  :windowtype "dock"
+  :stacking "bg"
+  :geometry (geometry :x "0%"
+                      :y "0%"
+                      :width "100%"
+                      :height "28px"
+                      :anchor "top center")
+  :reserve (struts :side "top" :distance "4%")
+  (bar))
