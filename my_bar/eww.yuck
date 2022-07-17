@@ -56,10 +56,6 @@ time
 
     ))
 
-(defwidget launcher []
-  (box :class "launcher_module" :orientation "h"
-   (button :onclick "~/opt/bin/launcher_slate" :class "iconlauncher" "")
-   ))
 
 
 (defwidget bat_label []
@@ -67,8 +63,7 @@ time
        :orientation "h"
        :space-evenly false
        :halign "center"
-   (button :"${bat_label} ")
-    ))
+    {bat_label != "" ? "${bat_label} " : ""}))
 
 (defpoll bat_label :interval "1s"
   "scripts/getbat_status")
@@ -102,8 +97,7 @@ time
        :orientation "h"
        :space-evenly false
        :halign "center"
-   (button :onclick "scripts/showmpd" "${music}")
-    ))
+    {music != "" ? "${music}" : ""}))
 
 
 (defwidget battery []
