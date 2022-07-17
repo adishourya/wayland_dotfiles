@@ -1,7 +1,7 @@
 #! /bin/bash
 
 #define icons for workspaces 1-9
-ic=(0 Term Browser Files Music Videos Other)
+ic=(0 Term Browser Files Music Videos CS:GO Other)
 
 #initial check for occupied workspaces
 for num in $(hyprctl workspaces | grep ID | sed 's/()/(1)/g' | awk 'NR>1{print $1}' RS='(' FS=')'); do 
@@ -40,6 +40,7 @@ echo 	"(eventbox :onscroll \"echo {} | sed -e 's/up/-1/g' -e 's/down/+1/g' | xar
               (button :onclick \"hyprctl dispatch workspace 4\" :onrightclick \"hyprctl dispatch workspace 4 && /home/taylor/.config/hypr/default_app\"	:class \"0$o4$f4\" \"${ic[4]}\") \
               (button :onclick \"hyprctl dispatch workspace 5\" :onrightclick \"hyprctl dispatch workspace 5 && /home/taylor/.config/hypr/default_app\"	:class \"0$o5$f5\" \"${ic[5]}\") \
               (button :onclick \"hyprctl dispatch workspace 6\" :onrightclick \"hyprctl dispatch workspace 6 && /home/taylor/.config/hypr/default_app\"	:class \"0$o6$f6\" \"${ic[6]}\") \
+              (button :onclick \"hyprctl dispatch workspace 7\" :onrightclick \"hyprctl dispatch workspace 7 && /home/taylor/.config/hypr/default_app\"	:class \"0$o7$f7\" \"${ic[7]}\") \
           )\
         )"
 }

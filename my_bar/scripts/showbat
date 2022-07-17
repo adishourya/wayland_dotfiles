@@ -1,0 +1,2 @@
+#!/bin/sh
+timeout 1.5s ~/.config/rofi/bin/applet_battery

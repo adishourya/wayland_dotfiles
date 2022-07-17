@@ -1,5 +1,5 @@
 configuration {
-font: "Inter Nerd Font 12";
+font: "SpaceMono Nerd Font 12";
 	show-icons: true;
 	drun-display-format: "{name}";
   drun-match-fields: "name,generic,categories,keywords";

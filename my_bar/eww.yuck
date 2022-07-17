@@ -2,13 +2,16 @@
 ;;Main Definition
 
 
-(defwidget left []
-	(box :orientation "h" 
-		 :space-evenly false  
-         :halign "start"
-		 :class "left_modules"
-(workspaces)
+(defwidget batterystuff []
+	(box :orientation "h"
+		 :space-evenly false
+         :halign "end"
+		 :class "right_modules"
+(bat_label)
+(battery_metric)
 ))
+
+
 
 
 (defwidget right []
@@ -53,14 +56,38 @@ time
 
     ))
 
+(defwidget launcher []
+  (box :class "launcher_module" :orientation "h"
+   (button :onclick "~/opt/bin/launcher_slate" :class "iconlauncher" "")
+   ))
 
-(defwidget batterystuff []
-  (box :class "batterystuff" :orientation "h" :space-evenly false :halign "end"
-    (metric :label "Battery "
-            :value battery
-            :onchange "")
+
+(defwidget bat_label []
+  (box :class "bat_label"
+       :orientation "h"
+       :space-evenly false
+       :halign "center"
+   (button :"${bat_label} ")
     ))
 
+(defpoll bat_label :interval "1s"
+  "scripts/getbat_status")
+
+
+(defwidget battery_metric []
+  (box :class "battery_metric" :orientation "h" :space-evenly false :halign "end"
+    (metric :label ""
+            :value battery
+            :onchange "cat /sys/class/power_supply/BAT0/capacity")
+    ))
+
+
+(defwidget battery_status []
+  (box :class "battery_metric" :orientation "h" :space-evenly false :halign "end"
+    (metric :label ""
+            :value "cat /sys/class/power_supply/BAT0/status"
+            :onchange "scripts/showbat")
+    ))
 
 
 (deflisten workspace "scripts/workspace")
@@ -69,12 +96,14 @@ time
 
 
 
+
 (defwidget music []
   (box :class "music"
        :orientation "h"
        :space-evenly false
        :halign "center"
-    {music != "" ? "🎵${music}" : ""}))
+   (button :onclick "scripts/showmpd" "${music}")
+    ))
 
 
 (defwidget battery []
@@ -106,18 +135,17 @@ time
 ))
 
 
-(deflisten music :initial ""
-  "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
+(defpoll music :interval "1s"
+  "scripts/getmusic")
 
-
-(deflisten battery :initial ""
-  "cat /sys/class/power_supply/BAT0/capacity")
+(defpoll battery :interval "10s"
+  "scripts/getbat")
 
 (defpoll volume :interval "1s"
   "scripts/getvol")
 
 (defpoll time :interval "10s"
-  "date '+%H:%M %d %b '")
+  "date '+%H:%M '")
 
 (defwindow bar
   :exclusive true

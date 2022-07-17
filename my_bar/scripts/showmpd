@@ -1,0 +1,2 @@
+#!/bin/sh
+timeout 2s ~/.config/rofi/bin/applet_mpd

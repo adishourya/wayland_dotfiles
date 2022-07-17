@@ -1,0 +1,3 @@
+#!/bin/sh
+# Convuluted but will not output a mess when mpc is stopped
+mpc status | tac | awk 'FNR==3'

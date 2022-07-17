@@ -2,7 +2,7 @@
   all: unset; //Unsets everything so you can style everything from scratch
 	font-family: feather;
 	//font-family: Inter Nerd Font;
-	//font-family: CartographCF Nerd Font;
+	font-family: CartographCF Nerd Font;
 	font-family: SpaceMono Nerd Font;
 }
 
@@ -13,6 +13,9 @@
 }
 
 // Styles on classes (see eww.yuck for more information)
+.music {
+	font-size: 11px;
+}
 
 .sidestuff {
 	font-size: 14px;
@@ -25,12 +28,12 @@
 }
 
 
-.batterystuff {
+.battery_metric {
 	font-size: 14px;
 	margin-left:0px;
 }
 
-.batterystuff slider {
+.battery_metric slider {
   all: unset;
   color: #a3be8c;
 	margin: 10px 0px 7px 0px;
@@ -52,7 +55,6 @@
 
 .works {
 	font-size: 16px;
-	font-weight: normal;
 	padding: 0px;
 	background-color: rgba(00,00,00,00);
 	margin: 6px 0px 6px 0px;
@@ -71,7 +73,8 @@ color: #606060;
 
 /* Occupied */
 .01, .02, .03, .04, .05, .06, .07, .08, .09 {
-  color: #dbdee9;
+  color: #606060;
+	background-color: #212121;
 }
 
 
