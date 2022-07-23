@@ -2,8 +2,13 @@
   all: unset; //Unsets everything so you can style everything from scratch
 	font-family: feather;
 	//font-family: Inter Nerd Font;
-	font-family: CartographCF Nerd Font;
-	font-family: SpaceMono Nerd Font;
+	font-family:Space Mono;
+	
+}
+
+.dockbox {
+	background-color: rgba(0,0,0,0);
+	border-radius: 12px;
 }
 
 //Global Styles
@@ -12,9 +17,59 @@
   color: #dbdee9;
 }
 
+.time {
+	color: #d08770;
+}
+
 // Styles on classes (see eww.yuck for more information)
 .music {
+	font-family: SpaceMono Nerd Font;
 	font-size: 11px;
+}
+
+.album_art {
+	background-repeat: no-repeat;
+	background-size: 300px;
+	min-height: 300px;
+	min-width: 300px;
+	border-radius: 8px;
+	margin: 0px 0px  0px 0px;
+}
+
+
+.musicbox {
+	margin : 0px 0px 0px 0px;
+}
+
+.song {
+	font-size : 14px;
+	font-weight : bold;
+}
+
+.artist {
+	font-size : 12px;
+	font-weight : bold;
+}
+
+.musicbuttons {
+	margin : -200px 0px 0px 0px;
+}
+
+.playbutton {
+    background-repeat: no-repeat;
+	background-size: 24px;
+	min-height: 24px;
+	min-width: 24px;
+	margin: 0px 0px  0px 0px;
+}
+
+
+.trackbutton {
+    background-repeat: no-repeat;
+	background-size: 18px;
+	min-height: 18px;
+	min-width: 18px;
+	margin: 0px 0px  0px 0px;
 }
 
 .sidestuff {
@@ -23,7 +78,7 @@
 
 .sidestuff slider {
   all: unset;
-  color: #a3be8c;
+  color: #c04639;
 	margin: 10px 0px 7px 0px;
 }
 
@@ -35,7 +90,7 @@
 
 .battery_metric slider {
   all: unset;
-  color: #a3be8c;
+  color: #c04639;
 	margin: 10px 0px 7px 0px;
 	min-width: 120px;
 }
@@ -47,7 +102,7 @@
 
 .audiostuff slider {
   all: unset;
-  color: #a3be8c;
+  color: #c04639;
 	margin: 10px 0px 7px 0px;
 	min-width: 90px;
 }
@@ -73,20 +128,21 @@ color: #606060;
 
 /* Occupied */
 .01, .02, .03, .04, .05, .06, .07, .08, .09 {
-  color: #606060;
-	background-color: #212121;
+	background-color:#242424;
+	color:#656565;
 }
 
 
 /* Focused */
 .011, .022, .033, .044, .055, .066, .077, .088, .099{
-  color: #a3be8c;
+  color: #181818;
+	background-color: #e5d0b3;
 }
 
 
 .works button:hover {
   color: #000000;
-  background-color: #a3be8c;
+  background-color: #c04639;
 }
 
 .module {
@@ -97,14 +153,14 @@ color: #606060;
 .metric scale trough highlight {
   all: unset;
   //background-color: #D35D6E;
-  background-color: #a3be8c;
+  background-color: #e5d0b3;
   color: #000000;
   border-radius: 4px;
 }
 .metric scale trough {
   all: unset;
-  //background-color: #4e4e4e;
-  background-color: #a3be8c;
+  //background-color: #323232;
+  background-color: #e5d0b3;
   border-radius: 50px;
   min-height: 3px;
   min-width: 30px;
@@ -114,7 +170,7 @@ color: #606060;
 .metric scale trough highlight {
   all: unset;
   //background-color: #D35D6E;
-	background-color: #a3be8c;
+	background-color: #e5d0b3;
   color: #000000;
   border-radius: 4px;
 }
@@ -136,5 +192,40 @@ color: #606060;
 
 .label-Audio {
   font-size: 20px;
+}
+
+.mails {
+	color: #FFC8C8;
+	border: 0px solid #161616;
+	border-radius: 16px;
+	font-size : 14px;
+	padding: 0px 5px 0px 5px;
+	margin: 10px 0px 10px 0px;
+	font-weight : bold;
+}
+
+.trayicon {
+    background-repeat: no-repeat;
+	background-size: 24px;
+	min-height: 24px;
+	min-width: 24px;
+	margin: 8px 0px 0px 0px;
+}
+
+.infotext {
+	color: #DCD7CD;
+	border: 0px solid #161616;
+	border-radius: 16px;
+	font-size : 14px;
+	padding: 0px 5px 0px 5px;
+	margin: 10px 0px 10px 0px;
+}
+
+.face {
+	background-size: 24px;
+	min-height: 24px;
+	min-width: 24px;
+	margin: 8px 0px 8px 0px;
+	border-radius: 100%;
 }
 

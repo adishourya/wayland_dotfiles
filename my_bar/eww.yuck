@@ -1,5 +1,82 @@
+;; ** Variables ***********************************************************************
+;; all the deffpolls
 
-;;Main Definition
+(defpoll bat_label :interval "1s"
+  "scripts/getbat_status")
+
+(defpoll SONG :interval "1s" `scripts/music_info --song`)
+(defpoll COVER :interval "1s" `scripts/music_info --cover`)
+(defpoll ARTIST :interval "1s" `scripts/music_info --artist`)
+(defpoll COVER :interval "1s" `scripts/music_info --cover`)
+(defpoll STATUS :interval "1s" `scripts/music_info --status`)
+
+(defpoll music :interval "1s"
+  "scripts/getmusic")
+
+(defpoll battery :interval "1s"
+  "scripts/getbat")
+
+(defpoll volume :interval "1s"
+  "scripts/getvol")
+
+(defpoll date :interval "1s"
+  "date '+:%d/%m'")
+
+(defpoll time :interval "1s"
+  "date '+%H:%M:'")
+
+;; Battery vars
+(defpoll BATICON :interval "1s" `scripts/battery --icon`)
+(defpoll BATPERC :interval "1m" `scripts/battery --perc`)
+
+;; Volume vars
+(defpoll VOLICON :interval "1s" `scripts/volume --icon`)
+(defpoll VOLUME :interval "1s" `scripts/volume --get`)
+
+;; Network
+(defpoll WIFIICON :interval "1s" `scripts/check-network --icon`)
+(defpoll NETSTAT :interval "1s" `scripts/check-network --stat`)
+
+;; TIME
+(defvar CALENDAR "images/icons/system/calendar.png")
+
+;; User
+(defvar IMAGE "images/profile.jpg")
+(defpoll USER :interval "10m" `whoami`)
+
+
+;;defwidgets******************************************************************
+
+
+(defwidget system [] 
+		(box :class "dockbox"
+			(box :orientation "h" :spacing 16 :valign "center" :halign "end" :space-evenly "false" :vexpand "false" :hexpand "false"
+				(button :onclick "scripts/widget_apps --pow"
+					(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
+						(box :style "background-image: url('${BATICON}');" :class "trayicon")
+							(label :class "infotext" :halign "start" :text BATPERC)))
+				(button :onclick "scripts/volume --toggle"
+					(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
+						(box :style "background-image: url('${VOLICON}');" :class "trayicon")
+							(label :class "infotext" :halign "start" :text VOLUME)))
+
+				(button :onclick "scripts/widget_apps --nm"
+					(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
+						(box :style "background-image: url('${WIFIICON}');" :class "trayicon")
+							(label :class "infotext" :halign "start" :text NETSTAT)))
+
+
+				(button :onclick "scripts/widget_apps --nm"
+					(box :orientation "h" :spacing 2 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
+						(box :style "background-image: url('${CALENDAR}');" :class "trayicon")
+							(label :class "infotext" :halign "start")
+							(box :class "time" time)
+							(box date)))
+
+				(button :onclick "notify-send zoinks!!!"
+					(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
+						(box :style "background-image: url('${IMAGE}');" :class "face")
+							(label :class "infotext" :halign "start" :text USER))))))
 
 
 (defwidget batterystuff []
@@ -10,8 +87,6 @@
 (bat_label)
 (battery_metric)
 ))
-
-
 
 
 (defwidget right []
@@ -31,7 +106,8 @@ time
   (centerbox :orientation "h"
     (left)
     (music)
-    (right)))
+    (system)
+		))
 
 
 (defwidget audiostuff []
@@ -65,15 +141,13 @@ time
        :halign "center"
     {bat_label != "" ? "${bat_label} " : ""}))
 
-(defpoll bat_label :interval "1s"
-  "scripts/getbat_status")
 
 
 (defwidget battery_metric []
   (box :class "battery_metric" :orientation "h" :space-evenly false :halign "end"
     (metric :label ""
             :value battery
-            :onchange "cat /sys/class/power_supply/BAT0/capacity")
+            :onchange "")
     ))
 
 
@@ -81,7 +155,7 @@ time
   (box :class "battery_metric" :orientation "h" :space-evenly false :halign "end"
     (metric :label ""
             :value "cat /sys/class/power_supply/BAT0/status"
-            :onchange "scripts/showbat")
+            :onchange "")
     ))
 
 
@@ -90,6 +164,31 @@ time
 (literal :content workspace))
 
 
+(defwidget float_mplayer [] 
+		(box :class "dockbox"
+
+			(box :orientation "v" :spacing 0 :valign "center" :halign "start" :space-evenly "false" :vexpand "false" :hexpand "false"
+
+				;; Album art box
+				(box :class "album_art" :style "background-image: url('${COVER}');")
+
+				;; artist and song name box
+				(box :class "musicbox" :orientation "v" :spacing 0 :valign "center" :halign "start" :space-evenly "false" :vexpand "false" :hexpand "false"
+					(label :class "song" :halign "start" :wrap "false" :limit-width 100 :text SONG)
+					(label :class "artist" :halign "start" :wrap "false" :limit-width 100 :text ARTIST)
+				)
+
+				;; Player Buttons
+				(box :class "musicbuttons" :orientation "h" :spacing 100 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
+					(button :style "background-image: url('images/icons/music/previous-button.png');" :class "trackbutton" :onclick "scripts/music_info --prev")
+					(button :style "background-image: url('${STATUS}');" :class "playbutton" :onclick "scripts/music_info --toggle")
+					(button :style "background-image: url('images/icons/music/next-button.png');" :class "trackbutton" :onclick "scripts/music_info --next")
+				)
+
+
+			)
+		)
+)
 
 
 (defwidget music []
@@ -123,33 +222,35 @@ time
 (defwidget left []
 	(box :orientation "h" 
 		 :space-evenly false  
-         :halign "start"
+       :halign "start"
+			 :valign "center"
 		 :class "left_modules"
 (workspaces)
 ))
 
-
-(defpoll music :interval "1s"
-  "scripts/getmusic")
-
-(defpoll battery :interval "10s"
-  "scripts/getbat")
-
-(defpoll volume :interval "1s"
-  "scripts/getvol")
-
-(defpoll time :interval "10s"
-  "date '+%H:%M '")
+;; windows ****************************************
 
 (defwindow bar
   :exclusive true
   :monitor 0
   :windowtype "dock"
   :stacking "bg"
+	:focusable false
   :geometry (geometry :x "0%"
                       :y "0%"
                       :width "100%"
-                      :height "28px"
+                      :height "30px"
                       :anchor "top center")
   :reserve (struts :side "top" :distance "4%")
   (bar))
+
+
+(defwindow album_art
+           :monitor 0
+           :geometry (geometry :x "10px"
+															 :y "10px"
+                               :anchor "top right")
+           :stacking "bg"
+           :windowtype "dock"
+           :wm-ignore false
+(float_mplayer))
