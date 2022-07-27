@@ -20,10 +20,11 @@
   "scripts/getvol")
 
 (defpoll date :interval "1s"
-  "date '+:%d/%m'")
+  "date '+ %d/%m'")
 
 (defpoll time :interval "1s"
-  "date '+%H:%M:'")
+  "date '+ %H:%M:%S '")
+
 
 ;; Battery vars
 (defpoll BATICON :interval "1s" `scripts/battery --icon`)
@@ -51,14 +52,10 @@
 (defwidget system [] 
 		(box :class "dockbox"
 			(box :orientation "h" :spacing 16 :valign "center" :halign "end" :space-evenly "false" :vexpand "false" :hexpand "false"
-				(button :onclick "scripts/widget_apps --pow"
-					(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
-						(box :style "background-image: url('${BATICON}');" :class "trayicon")
-							(label :class "infotext" :halign "start" :text BATPERC)))
-				(button :onclick "scripts/volume --toggle"
-					(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
-						(box :style "background-image: url('${VOLICON}');" :class "trayicon")
-							(label :class "infotext" :halign "start" :text VOLUME)))
+
+
+				(audiostuff)
+				(batterystuff)
 
 				(button :onclick "scripts/widget_apps --nm"
 					(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
@@ -66,12 +63,6 @@
 							(label :class "infotext" :halign "start" :text NETSTAT)))
 
 
-				(button :onclick "scripts/widget_apps --nm"
-					(box :orientation "h" :spacing 2 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
-						(box :style "background-image: url('${CALENDAR}');" :class "trayicon")
-							(label :class "infotext" :halign "start")
-							(box :class "time" time)
-							(box date)))
 
 				(button :onclick "notify-send zoinks!!!"
 					(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
@@ -105,7 +96,7 @@ time
 (defwidget bar []
   (centerbox :orientation "h"
     (left)
-    (music)
+		(clock)
     (system)
 		))
 
@@ -174,8 +165,8 @@ time
 
 				;; artist and song name box
 				(box :class "musicbox" :orientation "v" :spacing 0 :valign "center" :halign "start" :space-evenly "false" :vexpand "false" :hexpand "false"
-					(label :class "song" :halign "start" :wrap "false" :limit-width 100 :text SONG)
-					(label :class "artist" :halign "start" :wrap "false" :limit-width 100 :text ARTIST)
+					(label :class "song" :halign "start" :wrap "false" :limit-width 30 :text SONG)
+					(label :class "artist" :halign "start" :wrap "false" :limit-width 30 :text ARTIST)
 				)
 
 				;; Player Buttons
@@ -191,12 +182,19 @@ time
 )
 
 
-(defwidget music []
-  (box :class "music"
+(defwidget clock []
+  (box :class "dockbox"
        :orientation "h"
        :space-evenly false
        :halign "center"
-    {music != "" ? "${music}" : ""}))
+
+				(button :onclick "scripts/widget_apps --nm"
+					(box :orientation "h" :spacing 2 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
+							(label :class "infotext" :halign "start")
+							(box :class "time" time)
+							(box date)))
+							)
+							)
 
 
 (defwidget battery []
