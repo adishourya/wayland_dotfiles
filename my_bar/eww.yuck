@@ -1,29 +1,21 @@
 ;; ** Variables ***********************************************************************
 ;; all the deffpolls
 
-(defpoll bat_label :interval "1s"
-  "scripts/getbat_status")
+(defpoll bat_label :interval "1s" "scripts/getbat_status")
 
 (defpoll SONG :interval "1s" `scripts/music_info --song`)
 (defpoll COVER :interval "1s" `scripts/music_info --cover`)
+;; (defpoll COVER :interval "1s" `scripts/test_art.sh`)
 (defpoll ARTIST :interval "1s" `scripts/music_info --artist`)
-(defpoll COVER :interval "1s" `scripts/music_info --cover`)
 (defpoll STATUS :interval "1s" `scripts/music_info --status`)
+(defpoll music :interval "1s" "scripts/getmusic")
 
-(defpoll music :interval "1s"
-  "scripts/getmusic")
+(defpoll battery :interval "1s" "scripts/getbat")
 
-(defpoll battery :interval "1s"
-  "scripts/getbat")
+(defpoll volume :interval "1s" "scripts/getvol")
 
-(defpoll volume :interval "1s"
-  "scripts/getvol")
-
-(defpoll date :interval "1s"
-  "date '+ %d/%m'")
-
-(defpoll time :interval "1s"
-  "date '+ %H:%M:%S '")
+(defpoll date :interval "1s" "date '+%d/%m %A'")
+(defpoll time :interval "1s" "date '+ %H:%M:%S'")
 
 
 ;; Battery vars
@@ -45,6 +37,9 @@
 (defvar IMAGE "images/profile.jpg")
 (defpoll USER :interval "10m" `whoami`)
 
+;; Bar
+(defvar BARIMG "images/black_armour_80.png")
+
 
 ;;defwidgets******************************************************************
 
@@ -64,10 +59,13 @@
 
 
 
+				(box :class "time" time)
 				(button :onclick "notify-send zoinks!!!"
 					(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
 						(box :style "background-image: url('${IMAGE}');" :class "face")
-							(label :class "infotext" :halign "start" :text USER))))))
+							(label :class "infotext" :halign "start" :text USER)))
+
+							)))
 
 
 (defwidget batterystuff []
@@ -88,13 +86,14 @@
 (audiostuff)
 (sidestuff)
 (batterystuff)
-time
 ))
 
 
 
 (defwidget bar []
-  (centerbox :orientation "h"
+
+	;;(centerbox :style "background-image: url('${BARIMG}');"
+	(centerbox
     (left)
 		(clock)
     (system)
@@ -156,7 +155,7 @@ time
 
 
 (defwidget float_mplayer [] 
-		(box :class "dockbox"
+		(box :class "float_mplayer"
 
 			(box :orientation "v" :spacing 0 :valign "center" :halign "start" :space-evenly "false" :vexpand "false" :hexpand "false"
 
@@ -191,8 +190,7 @@ time
 				(button :onclick "scripts/widget_apps --nm"
 					(box :orientation "h" :spacing 2 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
 							(label :class "infotext" :halign "start")
-							(box :class "time" time)
-							(box date)))
+							(box :class "date" date)))
 							)
 							)
 

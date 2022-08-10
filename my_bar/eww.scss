@@ -1,25 +1,36 @@
 * {
   all: unset; //Unsets everything so you can style everything from scratch
-	font-family: feather;
 	//font-family: Inter Nerd Font;
-	font-family:Space Mono;
-	
+	// font-family:Space Mono;
 }
 
 .dockbox {
-	background-color: rgba(0,0,0,0);
+	font-family : Space Mono;
 	border-radius: 12px;
 }
 
+
 //Global Styles
 .bar {
-  background-color: rgba(18,18,18,0.9);
   color: #dbdee9;
+	// background-color:rgba(0,0,0,0.2);
+	// background-color:#181818;
+	background: linear-gradient(to right, #121212,#181818,#050505,#181818,#121212);
 }
 
 .time {
-	color: #d08770;
+	font-family :Bebas Neue;
+	font-size: 20px;
+	color: #bcbcbc;
+	font-weight:bold;
 }
+
+.date {
+	font-family :Bebas Neue;
+	color: #898989;
+	padding-left:12px;
+}
+
 
 // Styles on classes (see eww.yuck for more information)
 .music {
@@ -40,18 +51,27 @@
 	margin : 0px 0px 0px 0px;
 }
 
-.song {
-	font-size : 14px;
-	font-weight : bold;
+
+.float_mplayer{
+	font-family:VictorMono Nerd Font;
+	padding: 15px;
+	border-radius: 10px;
+	background: linear-gradient(to right, #212121,#181818,#171717,#181818,#212121);
 }
 
+.song {
+	font-size : 12px;
+	padding:12px;
+	font-weight : bold;
+	padding-left:2px;
+}
 .artist {
 	font-size : 12px;
-	font-weight : bold;
+	padding-left:2px;
 }
 
 .musicbuttons {
-	margin : -70px 0px 0px 0px;
+	margin : -80px 0px 0px 0px;
 }
 
 .playbutton {
@@ -108,10 +128,8 @@
 
 
 .works {
-	font-size: 16px;
-	padding: 0px;
-	background-color: rgba(00,00,00,00);
-	margin: 6px 0px 6px 0px;
+	font-family:VictorMono Nerd Font;
+	font-weight:bold;
 }
 
 
@@ -128,22 +146,19 @@
 /* Occupied */
 .01, .02, .03, .04, .05, .06, .07, .08, .09 {
 	color:#959595;
-	font-family: CartographCF Nerd Font;
-	font-weight:bold;
 }
 
 
 /* Focused */
 .011, .022, .033, .044, .055, .066, .077, .088, .099{
-	color: #e5d0b3;
-	font-family: CartographCF Nerd Font;
+	color: #ffffff;
 	font-weight:bold;
 }
 
 
 .works button:hover {
   color: #000000;
-  background-color: #c04639;
+  background-color: #bcbcbc;
 }
 
 .module {
@@ -154,14 +169,14 @@
 .metric scale trough highlight {
   all: unset;
   //background-color: #D35D6E;
-  background-color: #e5d0b3;
+  background-color: #bcbcbc;
   color: #000000;
   border-radius: 4px;
 }
 .metric scale trough {
   all: unset;
   //background-color: #323232;
-  background-color: #e5d0b3;
+  background-color: #bcbcbc;
   border-radius: 50px;
   min-height: 3px;
   min-width: 30px;
@@ -171,7 +186,7 @@
 .metric scale trough highlight {
   all: unset;
   //background-color: #D35D6E;
-	background-color: #e5d0b3;
+	background-color: #bcbcbc;
   color: #000000;
   border-radius: 4px;
 }
@@ -218,7 +233,7 @@
 	border: 0px solid #161616;
 	border-radius: 16px;
 	font-size : 14px;
-	padding: 0px 5px 0px 5px;
+	padding: 0px 2px 0px 0px;
 	margin: 10px 0px 10px 0px;
 }
 
